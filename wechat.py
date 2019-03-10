@@ -19,6 +19,8 @@ def group_reply(msg):
         if msg.isAt:
             if 'ssdy-' in get_text(msg):
                 key = get_text(msg).split('-')[-1]
+                print('这是get_text(msg):', get_text(msg))
+                print('这是msg[Text]', msg['Text'])
                 print(key)
                 f = get_movie.get(key)
                 print('这是f-------', f)
@@ -28,6 +30,11 @@ def group_reply(msg):
                     itchat.send_file('download_link.txt', msg['FromUserName'])
                 else:
                     itchat.send(f, msg['FromUserName'])
+            if 'clss-' in get_text(msg):
+                key = get_text(msg).split('-')[-1]
+                datas = get_movie.zhongzisou_mag(key)
+                itchat.send_file('mag.txt', msg['FromUserName'])
+                print(datas)
     except Exception as e:
         print(e)
 
@@ -47,6 +54,11 @@ def friends_reply(msg):
                     itchat.send_file('download_link.txt', msg['FromUserName'])
                 else:
                     itchat.send(f, msg['FromUserName'])
+            if 'clss-' in get_text(msg):
+                key = get_text(msg).split('-')[-1]
+                datas = get_movie.zhongzisou_mag(key)
+                itchat.send_file('mag.txt', msg['FromUserName'])
+                print(datas)
     except Exception as e:
         print(e)
 

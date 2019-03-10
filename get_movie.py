@@ -37,6 +37,7 @@ def panyouwang(key):
             return result
 
 def zhongzisou_mag(key):
+    ed2k_list = []
     url = 'https://www.zhongziso.com/list/{}/1'.format(key)
     page_text = spider_basic_func.get_page(url)
     soup = spider_basic_func.soup(page_text)
@@ -45,13 +46,18 @@ def zhongzisou_mag(key):
     data = []
     for m in range(0, nn, 6):
         move_name = all_data[m].get_text()[4:]
-        mag = all_data[m-2].a['href']
-        heat = all_data[m-3].get_text()
-        size = all_data[m-4].get_text()
-        creation_date = all_data[m-5].get_text()
+        mag = all_data[m-2].a['href'] + '\n'
+        heat = all_data[m-3].get_text() + '\n'
+        size = all_data[m-4].get_text() + '\n'
+        creation_date = all_data[m-5].get_text() + '\n'
         # print(all_data[m].get_text())
-        data.append([move_name, mag, heat, size, creation_date])
-    return data
+        data = '\n'.join([move_name + '---'*15 + '\n' + mag + '\n' + '---'*15 + heat + size + creation_date])
+        ed2k_list.append(data)
+    datas = '\n'.join(ed2k_list)
+    with open('mag.txt', 'w', encoding='utf-8') as f:
+        f.write(datas)
+
+    return datas
 
 
 def get(key):
@@ -71,27 +77,13 @@ def get(key):
         if pengyouwang is not None:
             result_text = ''.join(pengyouwang)
         else:
-            tt = []
-            zhongzisou = zhongzisou_mag(key)
-            if zhongzisou:
-                for i in zhongzisou:
-                    for y in i:
-                        tt.append(y)
-                    tt.append('\n\n')
 
-                text = '\n'.join(tt)
-                with open('download_link.txt', 'w', encoding='utf-8') as f:
-                    f.write(text)
-                result_text = '你需要的下载链接在下面的文本文件里，\n可以百度离线下载或者用下载软件下载\n,如果好用，帮我推荐给你朋友吧，谢谢。'
-            else:
-                result_text = '主人技术太菜，没能匹配到更多的内容'
+            result_text = '主人技术太菜，没能匹配到更多的内容'
             print(result_text)
     return result_text
 
 if __name__ == '__main__':
-    result = zhongzisou_mag('草b')
-    for i in result:
-        print(i)
+    result = get('苍井空')
 
 
 
