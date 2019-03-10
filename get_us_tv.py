@@ -24,7 +24,7 @@ def transcoding(text):
 
 
 def get_us_tv(key):
-    pan_text = ''
+    pan_list = []
     mag_list = []
     ed2k_list = []
 
