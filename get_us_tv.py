@@ -55,7 +55,7 @@ def get_us_tv(key):
                     pan_passwd =['提取码：' + pan_pw[0][-4:]]
                     pan_text = '\n'.join(pan_link + pan_passwd)
                     print('111111', pan_text)
-                # print(pan_link, pan_pw)
+                    pan_list.append(pan_text)
                 else:
                     print('have two pan_link')
                     pp = list(zip(pan_link, pan_pw))
@@ -111,6 +111,7 @@ def get_us_tv(key):
                         print(type(pan_link))
                         pan_text = '\n'.join(pan_link + pan_passwd)
                         print('111111', pan_text)
+                        pan_list.append(pan_text)
                     else:
                         pp = list(zip(pan_link, pan_pw))
                         print('in pp :', pp)
